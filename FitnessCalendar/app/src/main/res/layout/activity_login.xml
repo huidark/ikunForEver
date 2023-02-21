@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    tools:context=".activity.Login">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Fitness \nCalendar"
+        android:textSize="50dp"
+        android:textColor="#5ADCA0"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        />
+    <LinearLayout
+        android:id="@+id/ll_blank"
+        android:layout_height="128dp"
+        android:layout_width="match_parent"
+        android:layout_below="@id/tv_title"
+        android:orientation="horizontal" />
+    <EditText
+        android:id="@+id/et_username"
+        android:maxLines="1"
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_below="@id/ll_blank"
+        android:hint="username"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textColorHint="#BABABA"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/et_username"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:text="Get Started!"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:background="@drawable/bg_login"
+        />
+    <TextView
+        android:layout_height="40dp"
+        android:layout_width="280dp"
+        android:layout_below="@id/bt_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:textColor="#BABABA"
+        android:text="If the username is not registered, it will be registered automatically"
+        />
+
+</RelativeLayout>
