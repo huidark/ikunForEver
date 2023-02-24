@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -15,6 +17,7 @@ import android.widget.EditText;
 
 import com.example.fitnesscalendar.R;
 import com.example.fitnesscalendar.data.DataStructure;
+
 
 /*
 This class serve as the fragment class of login page.

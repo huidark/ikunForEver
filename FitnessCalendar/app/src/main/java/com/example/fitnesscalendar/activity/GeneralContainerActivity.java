@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import android.util.Log;
+
 import com.example.fitnesscalendar.R;
 import com.example.fitnesscalendar.data.DataStructure;
 import com.example.fitnesscalendar.fragment.FirstPageFragment;
@@ -21,11 +23,15 @@ public class GeneralContainerActivity extends AppCompatActivity {
     //declare fragments to be used.
     private FirstPageFragment firstPageFragment;
 
+    //activity name
+    private static final String activityTag = "GeneralContainerActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //initialize the view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_general_page_container);
+        Log.d(activityTag, "onCreate() Activity!");
 
         //TODO: add switch method later for different usages.
         //TODO: initialize data structure
@@ -45,5 +51,35 @@ public class GeneralContainerActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(activityTag, "onStart() Activity!");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(activityTag, "onResume() Activity!");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(activityTag, "onPause() Activity!");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(activityTag, "onStop() Activity!");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(activityTag, "onDestroy() Activity!");
     }
 }
