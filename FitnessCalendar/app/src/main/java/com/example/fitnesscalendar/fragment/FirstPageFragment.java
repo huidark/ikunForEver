@@ -4,6 +4,8 @@ import static com.example.fitnesscalendar.R.id.fl_container;
 
 import android.os.Bundle;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -25,10 +27,14 @@ public class FirstPageFragment extends android.app.Fragment {
     //initialization of login fragment
     private LoginFragment loginFragment;
 
+    //fragment name
+    private static final String fragmentTag = "FirstPageFragment";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         //create view
+        Log.d(fragmentTag, "FirstPageFragment onCreateView() method used!");
         View view = inflater.inflate(R.layout.fragment_first_page, container, false);
         return view;
     }
@@ -37,6 +43,8 @@ public class FirstPageFragment extends android.app.Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         //actions after view is created
         super.onViewCreated(view, savedInstanceState);
+
+        Log.d(fragmentTag, "FirstPageFragment onViewCreated() method used!");
 
         Bundle bundlel = getArguments();
         DataStructure ds = (DataStructure) bundlel.getSerializable("ds");
@@ -57,5 +65,53 @@ public class FirstPageFragment extends android.app.Fragment {
         };
         timer.schedule(tt, 1500);
 
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(fragmentTag, "FirstPageFragment onCreate() method used!");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(fragmentTag, "FirstPageFragment onStart() method used!");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(fragmentTag, "FirstPageFragment onResume() method used!");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(fragmentTag, "FirstPageFragment onPause() method used!");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(fragmentTag, "FirstPageFragment onStop() method used!");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(fragmentTag, "FirstPageFragment onDestroyView() method used!");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(fragmentTag, "FirstPageFragment onDestroy() method used!");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(fragmentTag, "FirstPageFragment onDetach() method used!");
     }
 }

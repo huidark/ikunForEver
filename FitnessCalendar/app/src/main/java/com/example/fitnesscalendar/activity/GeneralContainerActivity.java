@@ -3,6 +3,8 @@ package com.example.fitnesscalendar.activity;
 import static com.example.fitnesscalendar.R.id.fl_container;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
@@ -33,6 +35,9 @@ public class GeneralContainerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_general_page_container);
         Log.d(activityTag, "onCreate() Activity!");
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         //TODO: add switch method later for different usages.
         //TODO: initialize data structure
 
@@ -48,7 +53,6 @@ public class GeneralContainerActivity extends AppCompatActivity {
             firstPageFragment.setArguments(bundlef);
             //add the fragment into frame layout container
             getFragmentManager().beginTransaction().add(fl_container, firstPageFragment).commitAllowingStateLoss();
-
         }
 
     }
