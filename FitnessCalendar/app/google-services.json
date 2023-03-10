@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "674974070395",
+    "project_id": "project-8014503320147983420",
+    "storage_bucket": "project-8014503320147983420.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674974070395:android:d037189080994dc50d94de",
+        "android_client_info": {
+          "package_name": "com.example.fitnesscalendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674974070395-22i43kll8t07noa06mn1jc2c2r8nu258.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAwhXNbrllxuMLZ6cqaVP05ypzFzMs-Zk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674974070395-22i43kll8t07noa06mn1jc2c2r8nu258.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

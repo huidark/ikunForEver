@@ -2,19 +2,19 @@ package com.example.fitnesscalendar.data;
 
 import java.io.Serializable;
 
-public class DataStructure implements Serializable {
+public class TempoData implements Serializable {
 
     //TODO: this class works as data storage class: an object of this class should be passed
     //TODO: each time when data is transferred between Activity/Fragment
     private String username;
     //public constructor
-    public DataStructure(){
+    public TempoData(){
         username = "";
     }
 
     //setter of username
     public void setUsername(String username){
-        if(username == null){
+        if(username == ""){
             this.username = username;
         }
     }

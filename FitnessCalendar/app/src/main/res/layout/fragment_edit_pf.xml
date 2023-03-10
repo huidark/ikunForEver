@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.EditPfFragment">
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:hint="USERNAME"
+        android:textSize="40dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/et_age"
+        android:layout_below="@id/et_name"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:hint="AGE:"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />
+
+    <EditText
+        android:id="@+id/et_gender"
+        android:layout_below="@id/et_age"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:hint="GENDER:"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />
+
+    <EditText
+        android:id="@+id/et_height"
+        android:layout_below="@id/et_gender"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:hint="HEIGHT:"
+        android:textSize="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />
+
+    <EditText
+        android:id="@+id/et_weight"
+        android:layout_below="@id/et_height"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:hint="WEIGHT:"
+        android:textSize="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />
+
+    <Button
+        android:id="@+id/bt_sv"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/et_weight"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="35dp"
+        android:text="save"
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_login"
+        />
+
+
+</RelativeLayout>

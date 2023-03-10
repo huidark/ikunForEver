@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.LoginFragment">
+    tools:context=".ui.fragment.LoginFragment">
 
 
     <EditText
@@ -30,19 +30,23 @@
         android:layout_below="@id/et_username"
         android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
-        android:text="Get Started!"
+        android:text="Login"
         android:textColor="#FFF"
         android:textStyle="bold"
         android:background="@drawable/bg_login"
         />
-    <TextView
-        android:layout_height="40dp"
-        android:layout_width="280dp"
+
+    <Button
+        android:id="@+id/bt_register"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
         android:layout_below="@id/bt_login"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:textColor="#BABABA"
-        android:text="If the username is not registered, it will be registered automatically"
+        android:text="Register"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:background="@drawable/bg_login"
         />
 
 </RelativeLayout>

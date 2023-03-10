@@ -1,4 +1,4 @@
-package com.example.fitnesscalendar.fragment;
+package com.example.fitnesscalendar.ui.fragment;
 
 import static com.example.fitnesscalendar.R.id.fl_container;
 
@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.fitnesscalendar.R;
-import com.example.fitnesscalendar.data.DataStructure;
+import com.example.fitnesscalendar.data.TempoData;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,7 +23,7 @@ import java.util.TimerTask;
 This class serve as the fragment class for first page.
 This class should only create the view of first page fragment and sleep for 1.5s
  */
-public class FirstPageFragment extends android.app.Fragment {
+public class FirstPageFragment extends Fragment {
     //initialization of login fragment
     private LoginFragment loginFragment;
 
@@ -46,15 +46,8 @@ public class FirstPageFragment extends android.app.Fragment {
 
         Log.d(fragmentTag, "FirstPageFragment onViewCreated() method used!");
 
-        Bundle bundlel = getArguments();
-        DataStructure ds = (DataStructure) bundlel.getSerializable("ds");
-
         //initialization of login fragment
         loginFragment = new LoginFragment();
-        //add data structure to bundle
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("ds", ds);
-        loginFragment.setArguments(bundle);
         //replace the fragments
         Timer timer = new Timer();
         TimerTask tt = new TimerTask() {
