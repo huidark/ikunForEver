@@ -25,6 +25,9 @@ import com.example.fitnesscalendar.data.TempoData;
 import com.example.fitnesscalendar.model.User;
 import com.example.fitnesscalendar.viewmodel.UserViewModel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /*
 This class serve as the fragment class of login page.
@@ -77,13 +80,17 @@ public class LoginFragment extends Fragment {
                 if(lu != null){
                     Toast.makeText(getActivity(), "Username Existed", Toast.LENGTH_SHORT).show();
                 }else {
-                    uv.createUser(username);
+                    Map<String, Double> weights = new HashMap<>();
+                    weights.put("00000000", 0.0);
+                    User u = new User(username, null, 0.0, weights, 0, false);
+                    uv.createUser(u);
                     Toast.makeText(getActivity(), "Successfully Created", Toast.LENGTH_SHORT).show();
                     SharedPreferences sp = getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
                     //TODO: option1 add username String
                     //TODO: option2 add User object
                     editor.putString("userName", username);
+                    editor.apply();
                     menuFragment = new MenuFragment();
                     getFragmentManager()
                             .beginTransaction()

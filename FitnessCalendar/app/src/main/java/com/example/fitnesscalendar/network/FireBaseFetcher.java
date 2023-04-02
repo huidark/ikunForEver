@@ -6,12 +6,17 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.compose.ui.node.MyersDiffKt;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.fitnesscalendar.api.FireBaseEventData;
+import com.example.fitnesscalendar.api.FireBasePhotoData;
 import com.example.fitnesscalendar.api.FireBaseUserData;
+import com.example.fitnesscalendar.model.DeEvent;
 import com.example.fitnesscalendar.model.Event;
+import com.example.fitnesscalendar.model.Photo;
+import com.example.fitnesscalendar.model.Train;
 import com.example.fitnesscalendar.model.User;
 import com.example.fitnesscalendar.viewmodel.UserViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,13 +35,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /*
 This class is used as the connector/fetcher to the firebase. We use the FireStore functionality of
-firebase. Be careful that his class is automatically asynchronized.
+firebase. Be careful that his class is automatically asynchronized, but now implemented as synchronized
+//TODO: ?whether to run all methods with ThreadPool to improve performance?
 This class should provide methods to do CURD operation to FireStore.
  */
 public class FireBaseFetcher {
@@ -60,7 +67,7 @@ public class FireBaseFetcher {
     /*
     callback for ViewModel
      */
-    public interface onResult {
+    public interface onUserResult {
         void onAddResult(String result, CountDownLatch cdadd);
 
         void onUpdateResult(String result,CountDownLatch cdupdate);
@@ -69,7 +76,25 @@ public class FireBaseFetcher {
 
         void onGetUsersResult(LiveData<List<User>> users, String result, CountDownLatch cdgets);
 
-        void onDeleteResult(String result, CountDownLatch cddel);//TODO:get this done
+        void onDeleteResult(String result, CountDownLatch cddel);
+    }
+
+    public interface onEventResult {
+        void onAddResult(String result, CountDownLatch cdadd);
+
+        void onUpdateResult(String result,CountDownLatch cdupdate);
+
+        void onGetEventsResult(LiveData<List<DeEvent>> users, String result, CountDownLatch cdgets);
+
+        void onDeleteResult(String result, CountDownLatch cddel);
+    }
+
+    public interface onPhotoResult{
+        void onAddResult(String result, CountDownLatch cdadd);
+
+        void onGetPhotoResult(LiveData<String> photo64, String result, CountDownLatch cdgets);
+
+        void onDeleteResult(String result, CountDownLatch cddel);
     }
 
     //single object
@@ -89,14 +114,13 @@ public class FireBaseFetcher {
 
     /*
     User CURD
+    !!!THE NAME OF THE DOCUMENT SHOULD BE NAMED IN SUCH FORMAT:
+    USERNAME
      */
-    public void addUser(String userName, String userGender, double userHeight, Map<String, Double> userWeight,
-                        int userAge, onResult addResult, CountDownLatch cd) {
+    public void addUser(User u, onUserResult addResult, CountDownLatch cd) {
 
-
-        FireBaseUserData ud = new FireBaseUserData(userName,
-                userGender, userHeight, userWeight, userAge);
-        db.collection("users").document(userName)
+        FireBaseUserData ud = new FireBaseUserData(u);
+        db.collection("users").document(u.getUserName())
                 .set(ud)
                 .addOnSuccessListener(es, new OnSuccessListener<Void>() {
                     @Override
@@ -114,12 +138,10 @@ public class FireBaseFetcher {
 
     }
 
-    public void updateUser(String userName, String userGender, double userHeight, Map<String, Double> userWeight,
-                           int userAge, onResult updateResult, CountDownLatch cd) {
+    public void updateUser(User u, onUserResult updateResult, CountDownLatch cd) {
         //TODO: render set()
-        FireBaseUserData ud = new FireBaseUserData(userName,
-                userGender, userHeight, userWeight, userAge);
-        db.collection("users").document(userName)
+        FireBaseUserData ud = new FireBaseUserData(u);
+        db.collection("users").document(u.getUserName())
                 .set(ud)
                 .addOnSuccessListener(es, new OnSuccessListener<Void>() {
                     @Override
@@ -137,81 +159,37 @@ public class FireBaseFetcher {
 
     }
 
-    //TODO: do not need this method for now
-    /*
-    public void getUsers(){
-        db.collection("users")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
-
-                        List<User> users = new ArrayList<>();
-                        for (QueryDocumentSnapshot doc : value) {
-                            if (doc.get("userName") != null) {
-
-                                users.add(doc.getData());
-                            }
-                        }
-                        Log.d(TAG, "Current cites in CA: " +users);
-                    }
-                });
-    }*/
-    //TODO: R should have more format
-    public void getUserOnce(String userName, onResult getUserResult, CountDownLatch cd) {
-                DocumentReference docRef = db.collection("users").document(userName);
+    public void getUserOnce(String userName, onUserResult getUserResult, CountDownLatch cd) {
+                DocumentReference docRef = db
+                        .collection("users")
+                        .document(userName);
                 docRef.get().addOnSuccessListener(es, new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Log.d("getUserOnce1", Thread.currentThread().getName());
                         FireBaseUserData fd = documentSnapshot.toObject(FireBaseUserData.class);
                         User u;
                         MutableLiveData<User> mu = null;
                         if(fd != null) {
                             u = new User(fd);
+                            if(u.getUserWeight() == null){
+                                Log.d("getUserOnce", "u is Null");
+                            }else{
+                                //Log.d("getUserOnce", "u is"+u.getUserWeight().get("00000000"));
+                            }
                             mu = new MutableLiveData<>(u);
+                            if(mu.getValue().getUserWeight() == null){
+                                Log.d("getUserOnce", "mu is null ");
+                            }else{
+                                //Log.d("getUserOnce", "mu is"+mu.getValue().getUserWeight().get("00000000"));
+                            }
                         }
                         getUserResult.onGetUserResult(mu, "Successfully get", cd);
                     }
                 });
-
-
-        /*
-        DocumentReference docRef = db.collection("users").document(userName);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                Log.d("getUserOnce", "onSuccess");
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("getUserOnce", "exist");
-                        try {
-                            MutableLiveData<User> um = new MutableLiveData<>();
-                            um.setValue((User) document.getData());
-                            getUserResult.onGetUserResult(um, "Successfully get");
-                        } catch (Exception ce) {
-                            Log.d(TAG, "Conversion failed");
-                        }
-                    } else {
-                        Log.d("getUserOnce", "not exist");
-                        getUserResult.onGetUserResult(null, "No such user");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-
-         */
     }
 
 
-    public void deleteUser(String userName, onResult deleteResult, CountDownLatch cd) {
+    public void deleteUser(String userName, onUserResult deleteResult, CountDownLatch cd) {
         //TODO: render set()
         db.collection("users").document(userName)
                 .delete()
@@ -232,29 +210,168 @@ public class FireBaseFetcher {
 
     //---------------------------------------------------------------------------------------------------
     /*
-    Event CURD TODO: implement these next ckp
+    Event CURD
+    !!! THE NAME OF THE DOCUMENT SHOULD BE NAMED IN SUCH FORMAT:
+    USERNAME|DATE|TIME where | stands for concat
      */
-    public void addEvent(String userName, int eventRmDuration, String eventDate, String trainingName,
-                         boolean trainingIsAn, boolean trainingIsCa, int trainingCalories) {
-
+    public void addEvent(DeEvent deEvent, onEventResult addResult,
+                         CountDownLatch cd) {
+        String index;
+        index = deEvent.getUserName()+deEvent.getEvent().getEventDate()+deEvent.getEvent().getEventTime();
+        FireBaseEventData ed = new FireBaseEventData(deEvent);
+        db.collection("events").document(index)
+                .set(ed)
+                .addOnSuccessListener(es, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("addEvent", "onSuccess");
+                        addResult.onAddResult("Successfully created", cd);
+                    }
+                }).addOnFailureListener(es, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("addEvent", "Error adding document", e);
+                        addResult.onAddResult("Error writing document", cd);
+                    }
+                });
     }
 
-    public void updateUserEvent(String userName, int eventRmDuration, String eventDate, String trainingName,
-                                boolean trainingIsAn, boolean trainingIsCa, int trainingCalories) {
 
+
+    public void updateEvent(DeEvent deEvent, onEventResult updateResult,
+                                CountDownLatch cd) {
+        String index;
+        index = deEvent.getUserName()+deEvent.getEvent().getEventDate()+deEvent.getEvent().getEventTime();
+        FireBaseEventData ed = new FireBaseEventData(deEvent);
+        db.collection("events").document(index)
+                .set(ed)
+                .addOnSuccessListener(es, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("updateEvents", "onSuccess");
+                        updateResult.onAddResult("Successfully created", cd);
+                    }
+                }).addOnFailureListener(es, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("updateEvents", "Error adding document", e);
+                        updateResult.onAddResult("Error writing document", cd);
+                    }
+                });
     }
 
-    public LiveData<List<Event>> getEvents() {
-        return null;
+    public void getEvents(String userName, String date, onEventResult getResult,
+                                           CountDownLatch cd) {
+        db.collection("events")
+                .whereEqualTo("userName", userName)
+                .whereEqualTo("eventDate", date)
+                .get()
+                .addOnCompleteListener(es, new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            LiveData<List<DeEvent>> lle = null;
+                            List<DeEvent> deEvents = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                FireBaseEventData fd = document.toObject(FireBaseEventData.class);
+                                DeEvent deEvent = new DeEvent(fd);
+                                deEvents.add(deEvent);
+                            }
+                            lle = new MutableLiveData<>(deEvents);
+                            getResult.onGetEventsResult(lle, "successfully get all result", cd);//TODO: add implementation
+                        } else {
+                            getResult.onGetEventsResult(null, "fail", cd);
+                        }
+                    }
+                });
     }
 
-    public LiveData<Event> getEvent() {
-        return null;
+    public void deleteEvent(DeEvent deEvent, onEventResult deleteResult, CountDownLatch cd) {
+        String index;
+        index = deEvent.getUserName()+deEvent.getEvent().getEventDate()+deEvent.getEvent().getEventTime();
+        db.collection("events").document(index)
+                .delete()
+                .addOnSuccessListener(es, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        deleteResult.onDeleteResult("Successfully deleted", cd);
+                    }
+                })
+                .addOnFailureListener(es, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                        deleteResult.onDeleteResult("Error deleting document", cd);
+                    }
+                });
     }
 
-    public void deleteEvent() {
+    //---------------------------------------------------------------------------------------------
+    /*
+    Photo CRD: the reason that this is separated from Event is because fetching photo is slow.
+    should fetching only when the photo is not stored locally. Photo is stored in base64.
 
+     */
+    public void CreatePhoto(DeEvent deEvent, Photo photo, onPhotoResult updateResult,
+                            CountDownLatch cd) {
+        String index;
+        index = deEvent.getUserName()+deEvent.getEvent().getEventDate()+deEvent.getEvent().getEventTime();
+        FireBasePhotoData fd = new FireBasePhotoData(photo);
+        db.collection("photos").document(index)
+                .set(photo)
+                .addOnSuccessListener(es, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("addPhoto", "onSuccess");
+                        updateResult.onAddResult("Successfully created", cd);
+                    }
+                }).addOnFailureListener(es, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("addPhoto", "Error adding document", e);
+                        updateResult.onAddResult("Error writing document", cd);
+                    }
+                });
+    }
+
+    public void getPhoto(DeEvent deEvent, onPhotoResult getPhotoResult, CountDownLatch cd) {
+        String index;
+        index = deEvent.getUserName()+deEvent.getEvent().getEventDate()+deEvent.getEvent().getEventTime();
+        DocumentReference docRef = db
+                .collection("photos")
+                .document(index);
+        docRef.get().addOnSuccessListener(es, new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists()) {
+                    FireBasePhotoData fd = documentSnapshot.toObject(FireBasePhotoData.class);
+                    LiveData<String> mPhoto = new MutableLiveData<>(fd.getPhoto());
+                    getPhotoResult.onGetPhotoResult(mPhoto, "Successfully get", cd);
+                }else{
+                    getPhotoResult.onGetPhotoResult(null, "no such photo", cd);
+                }
+            }
+        });
     }
 
 
+    public void deletePhoto(DeEvent deEvent, onPhotoResult deleteResult, CountDownLatch cd) {
+        String index;
+        index = deEvent.getUserName()+deEvent.getEvent().getEventDate()+deEvent.getEvent().getEventTime();
+        db.collection("photos").document(index)
+                .delete()
+                .addOnSuccessListener(es, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        deleteResult.onDeleteResult("Successfully deleted", cd);
+                    }
+                })
+                .addOnFailureListener(es, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                        deleteResult.onDeleteResult("Error deleting document", cd);
+                    }
+                });
+    }
 }

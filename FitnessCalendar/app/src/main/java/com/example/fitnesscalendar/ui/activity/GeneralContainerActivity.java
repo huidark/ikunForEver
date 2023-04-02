@@ -5,6 +5,8 @@ import static com.example.fitnesscalendar.R.id.fl_container;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -70,5 +72,13 @@ public class GeneralContainerActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(activityTag, "onDestroy() Activity!");
+        /*
+        //TODO: add auto login
+        //case of no auto login
+        SharedPreferences sp = getSharedPreferences("Data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove("userName");
+        editor.apply();
+         */
     }
 }

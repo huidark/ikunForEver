@@ -1,5 +1,10 @@
 package com.example.fitnesscalendar.api;
 
+import com.example.fitnesscalendar.model.DeEvent;
+import com.example.fitnesscalendar.model.Event;
+import com.example.fitnesscalendar.model.Photo;
+import com.example.fitnesscalendar.model.Train;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,10 +15,11 @@ a event to his/her calender will a document be created.
  */
 public class FireBaseEventData {
 
-    Map<String, Object> result;
     private String userName;
     private int eventRmDuration;
     private String eventDate;
+
+    private String eventTime;
     private String trainingName;
     private boolean trainingIsAn;
     private boolean trainingIsCa;
@@ -24,18 +30,30 @@ public class FireBaseEventData {
     //a empty constructor required by FireBase
     public FireBaseEventData(){}
 
+
+
     //a standard constructor
-    public FireBaseEventData(String userName, int eventRmDuration, String eventDate, String trainingName,
-                            boolean trainingIsAn, boolean trainingIsCa, int trainingCalories){
+    public FireBaseEventData(String userName, int eventRmDuration, String eventDate, String eventTime,
+                             String trainingName, boolean trainingIsAn, boolean trainingIsCa, int trainingCalories){
         this.eventRmDuration = eventRmDuration;
         this.eventDate = eventDate;
+        this.eventTime = eventTime;
         this.userName = userName;
         this.trainingName = trainingName;
         this.trainingIsAn = trainingIsAn;
         this.trainingIsCa = trainingIsCa;
         this.trainingCalories = trainingCalories;
-        result = new HashMap<>();
-        result.put("eventRmDuration", eventRmDuration);
+    }
+
+    public FireBaseEventData(DeEvent deEvent){
+        this.userName = deEvent.getUserName();
+        this.eventRmDuration = deEvent.getEvent().getEventRmDuration();
+        this.eventDate = deEvent.getEvent().getEventDate();
+        this.eventTime = deEvent.getEvent().getEventTime();
+        this.trainingCalories = deEvent.getTrain().getTrainingCalories();
+        this.trainingIsCa = deEvent.getTrain().getTrainingIsCa();
+        this.trainingIsAn = deEvent.getTrain().getTrainingIsAn();
+        this.trainingName = deEvent.getTrain().getTrainingName();
     }
 
     /*
@@ -68,6 +86,8 @@ public class FireBaseEventData {
     public int getTrainingCalories(){
         return this.trainingCalories;
     }
+
+    public String getEventTime(){ return this.eventTime; }
 
 
 }

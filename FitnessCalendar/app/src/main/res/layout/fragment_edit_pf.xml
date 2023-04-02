@@ -75,6 +75,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="15sp"
         android:textStyle="bold"
+        android:textColor="#686868"
         android:background="@drawable/bg_login"
         />
 

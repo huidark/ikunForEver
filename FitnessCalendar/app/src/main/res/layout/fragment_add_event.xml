@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.AddEventFragment">
+
+    <EditText
+        android:id="@+id/et_tp"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:hint="TYPE:"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />
+    <EditText
+        android:id="@+id/et_cl"
+        android:layout_below="@id/et_tp"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:hint="CALORIES:"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_tm"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_cl"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="START TIME:"/>
+
+    <Spinner
+        android:id="@+id/sp_tm"
+        android:textAlignment="center"
+        android:layout_below="@id/tv_tm"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/bg_event"
+        android:entries="@array/duration_values"/>
+
+    <TextView
+        android:id="@+id/tv_dr"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sp_tm"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="DURATION:"/>
+
+
+
+    <Spinner
+        android:id="@+id/sp_dr"
+        android:textAlignment="center"
+        android:layout_below="@id/tv_dr"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/bg_event"
+        android:entries="@array/start_values"/>
+
+    <Button
+        android:id="@+id/bt_nt"
+        android:layout_below="@id/sp_dr"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_login"
+        android:textColor="#686868"
+        android:layout_centerHorizontal="true"
+        android:text="Next" />
+
+
+
+
+
+</RelativeLayout>

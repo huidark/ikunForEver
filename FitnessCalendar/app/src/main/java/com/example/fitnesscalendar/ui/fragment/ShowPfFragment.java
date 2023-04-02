@@ -49,8 +49,12 @@ public class ShowPfFragment extends Fragment implements View.OnClickListener {
     //instantiation of activity
     Activity activity;
 
+    //instantiation of Bundle
+    Bundle bundle;
+
     //instantiation of username
     String userName;
+    User user;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +68,7 @@ public class ShowPfFragment extends Fragment implements View.OnClickListener {
         SharedPreferences sharedPreferences = getActivity().
                 getSharedPreferences("Data", Context.MODE_PRIVATE);
         userName = sharedPreferences.getString("userName", null);
+        bundle = new Bundle();
     }
 
     @Override
@@ -89,79 +94,25 @@ public class ShowPfFragment extends Fragment implements View.OnClickListener {
         etButton = view.findViewById(R.id.bt_ed);
 
         //manually get the user'info for the first time
-        //TODO: if not using thread pool in UserViewModel then this can only be synchronized and slow
-        //TODO: is there case that the following lines will cause exception?
-        User user = um.getOneUser(userName).getValue();
+        user = um.getOneUser(userName).getValue();
         {
-            if(user.getUserWeight() == null) {
-                Log.d("mapnull", user.getUserName());
-                Log.d("mapnull", user.getUserHeight()+"");
-                Log.d("mapnull", "infragment");
-            }
+            //set up shown text
+            agText.setText("AGE: " + user.getUserAge() + "");
+            htText.setText("HEIGHT: "+ user.getUserHeight() + "");
             unText.setText(user.getUserName());
-            if (user.getUserAge() != 0) {
-                String age = user.getUserAge()+"";
-                agText.setText(age);
-            } else {
-                agText.setText("set by edit");
-            }
+            gdText.setText("GENDER: "+ user.getUserGender());
+            wtText.setText("WEIGHT: " + User.getLatestWeight(user) + "");
 
-            if (Math.abs(user.getUserHeight() - 0) < 0.001) {
-                htText.setText(user.getUserHeight() + "");
-            } else {
-                htText.setText("set by edit");
-            }
-            if (user.getUserGender() != null) {
-                gdText.setText(user.getUserGender());
-            } else {
-                gdText.setText("set by edit");
-            }
-            /*TODO: Map has problem
-            if (Math.abs(User.getLatestWeight(user) - 0) < 0.001) {
-                wtText.setText(User.getLatestWeight(user) + "");
-            } else {
-                wtText.setText("set by edit");
-            }
-             */
+            //set up bundle for edit
+            bundle.putInt("AGE", user.getUserAge());
+            bundle.putDouble("HEIGHT", user.getUserHeight());
+            bundle.putDouble("WEIGHT", User.getLatestWeight(user));
+            bundle.putString("GENDER", user.getUserGender());
+
+
         }
 
 
-        //TODO: this observer actually does nothing ^^
-        //observe current user data
-        um.observerDataOneUser().observe((LifecycleOwner) activity, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                unText.setText(user.getUserName());
-                if(user.getUserAge() != 0){
-                    String age = user.getUserAge()+"";
-                    agText.setText(age);
-                }else{
-                    agText.setText("AGE: set by edit");
-                }
-
-                if(Math.abs(user.getUserHeight() - 0) > 0.001){
-                    Log.d("testheight", user.getUserHeight()+"");
-                    Log.d("testheight", Math.abs(user.getUserHeight() - 0)+"");
-                    htText.setText(user.getUserHeight()+"");
-                }else{
-                    htText.setText("HEIGHT: set by edit");
-                }
-                if(user.getUserGender() != null){
-                    gdText.setText(user.getUserGender());
-                }else{
-                    gdText.setText("GENDER: set by edit");
-                }
-                /*TODO: Map has problem
-                if(Math.abs(User.getLatestWeight(user) - 0) < 0.001){
-                    wtText.setText(User.getLatestWeight(user)+"");
-                }else{
-                    wtText.setText("set by edit");
-                }
-
-                 */
-
-            }
-        });
 
         //set up click listener
         cwButton.setOnClickListener(this);
@@ -173,13 +124,16 @@ public class ShowPfFragment extends Fragment implements View.OnClickListener {
         switch(v.getId()){
             case R.id.bt_tmw:
                 //TODO:implement this later. This is used to trace the weight of an user.
+                //TODO: 这里你直接用user那个变量 User类里你可以加一个static的函数 完成根据日期和体重绘图这个事情
+                //TODO: 日期的格式 YYYYMMDD
                 break;
             case R.id.bt_ed:
                 editPfFragment = new EditPfFragment();
+                editPfFragment.setArguments(bundle);
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fl_container
-                                ,editPfFragment).addToBackStack(null)
+                                ,editPfFragment)
                         .commitAllowingStateLoss();
                 break;
         }

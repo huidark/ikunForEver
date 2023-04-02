@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    tools:context=".ui.fragment.ChooseEventFragment">
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Event Details"
+        android:layout_centerHorizontal="true"
+        android:textColor="#686868"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_tp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_text"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        android:text="TYPE:"/>
+
+    <TextView
+        android:id="@+id/tv_cl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_tp"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        android:text="TOTAL CALORIES:"/>
+
+    <ImageView
+        android:id="@+id/iv_ph"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/tv_cl"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:background="#E8E8E8"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:id="@+id/bt_ad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_cl"
+        android:layout_marginTop="75dp"
+        android:layout_centerHorizontal="true"
+        android:text="ADD PHOTO"
+        android:background="@drawable/bg_login" />
+
+    <Button
+        android:id="@+id/bt_dn"
+        android:layout_below="@id/iv_ph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="60dp"
+        android:background="@drawable/bg_login"
+        android:text="DONE" />
+
+    <Button
+        android:id="@+id/bt_dl"
+        android:layout_toRightOf="@id/bt_dn"
+        android:layout_below="@id/iv_ph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:background="@drawable/bg_login"
+        android:text="DELETE" />
+
+</RelativeLayout>

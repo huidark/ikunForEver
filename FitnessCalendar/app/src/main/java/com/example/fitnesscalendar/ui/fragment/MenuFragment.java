@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.fitnesscalendar.R;
+import com.example.fitnesscalendar.ui.activity.CalenderActivity;
 import com.example.fitnesscalendar.ui.activity.ProfileActivity;
 import com.example.fitnesscalendar.ui.activity.SettingsActivity;
 
@@ -37,8 +38,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         //actions after view is created
         super.onViewCreated(view, savedInstanceState);
         //instantiate and register buttons
-        ccButton = view.findViewById(R.id.bt_cc);
-        ccButton.setOnClickListener(this);
 
         aeButton = view.findViewById(R.id.bt_ae);
         aeButton.setOnClickListener(this);
@@ -56,10 +55,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         Intent it = null;
         switch(v.getId()){
             case R.id.bt_ae:
-                //TODO: update this
-                break;
-            case R.id.bt_cc:
-                //TODO: update this
+                it = new Intent(getActivity(), CalenderActivity.class);
                 break;
             case R.id.bt_st:
                 it = new Intent(getActivity(), SettingsActivity.class);

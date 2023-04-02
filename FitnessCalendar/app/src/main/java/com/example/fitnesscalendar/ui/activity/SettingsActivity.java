@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.fitnesscalendar.R;
@@ -31,5 +33,19 @@ public class SettingsActivity extends AppCompatActivity {
 
         //add the fragment into frame layout container
         fragmentTransaction.add(fl_container, settingFragment).commitAllowingStateLoss();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        /*
+        //TODO: add auto login
+        //case of no auto login
+        SharedPreferences sp = getSharedPreferences("Data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove("userName");
+        editor.apply();
+
+         */
     }
 }

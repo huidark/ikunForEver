@@ -1,23 +1,25 @@
 package com.example.fitnesscalendar.model;
+
+import java.io.Serializable;
+
 /*
 This is the model class of event. This class take care of information related to event, which would
 contain userName, Date, Durations, and an instantiation of Photo and a instantiation of train. One
 should use this class everywhere else than calling FireBaseFetcher. The EventViewModel class should
 render this class.
  */
-public class Event {
+public class Event implements Serializable {
     private String userName;
     private int eventRmDuration;
     private String eventDate;
-    //private Photo photo; TODO: change this
-    private Train train;
+    private String eventTime;
 
     //public constructors
-    public Event(String userName, int eventRmDuration, String eventDate, Train train) {
+    public Event(String userName, int eventRmDuration, String eventDate, String eventTime) {
         this.userName = userName;
         this.eventRmDuration = eventRmDuration;
         this.eventDate = eventDate;
-        this.train = train;
+        this.eventTime = eventTime;
     }
 
     /*
@@ -47,12 +49,11 @@ public class Event {
         this.eventDate = eventDate;
     }
 
-    public Train getTrain() {
-        return train;
+    public String getEventTime() {
+        return eventTime;
     }
 
-    public void setTrain(Train train) {
-        this.train = train;
+    public void setEventTime(String eventTime) {
+        this.eventTime = eventTime;
     }
-
 }

@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-public class UserViewModel extends ViewModel implements FireBaseFetcher.onResult {
+public class UserViewModel extends ViewModel implements FireBaseFetcher.onUserResult {
 
     //LiveData
     public LiveData<List<User>> users = null;
@@ -67,6 +67,7 @@ public class UserViewModel extends ViewModel implements FireBaseFetcher.onResult
     is manually set to be synchronized.
      */
     public void getOneUserOnce(String userName) {
+        Log.d("getOneUserOnce", "getting" + userName);
         CountDownLatch cdget = new CountDownLatch(1);
         synchronized (cdget) {
             cdget = new CountDownLatch(1);
@@ -85,13 +86,12 @@ public class UserViewModel extends ViewModel implements FireBaseFetcher.onResult
     this function serves to add a user to database by user specified field values. This function is
     manually set to be synchronized
      */
-    public void createUser(String userName) {
+    public void createUser(User u) {
         CountDownLatch cdadd = new CountDownLatch(1);
         synchronized (cdadd) {
-            Map<String, Double> heights = new HashMap<>();
-            heights.put("00000000", 0.0);
-            fr.addUser(userName, null, 0, heights, 0,
-                    UserViewModel.this, cdadd);
+            Map<String, Double> weights = new HashMap<>();
+            weights.put("00000000", 0.0);
+            fr.addUser(u, UserViewModel.this, cdadd);
             try {
                 cdadd.await();
             } catch (Exception e) {
@@ -125,9 +125,7 @@ public class UserViewModel extends ViewModel implements FireBaseFetcher.onResult
     public void updateUser(User user) {
         CountDownLatch cdupdate = new CountDownLatch(1);
         synchronized (cdupdate) {
-            cdupdate = new CountDownLatch(1);
-            fr.updateUser(user.getUserName(), user.getUserGender(), user.getUserHeight(), user.getUserWeight(),
-                    user.getUserAge(), UserViewModel.this, cdupdate);
+            fr.updateUser(user,UserViewModel.this, cdupdate);
             try {
                 cdupdate.await();
             } catch (Exception e) {

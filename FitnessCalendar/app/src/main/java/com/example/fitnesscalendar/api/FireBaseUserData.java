@@ -2,6 +2,8 @@ package com.example.fitnesscalendar.api;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.fitnesscalendar.model.User;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,17 +20,20 @@ public class FireBaseUserData {
     //String denotes date, Integer denotes user's height of that day
     //TODO: there is a probability that you cannot use Map easily. It may be registered as a document
     private Map<String, Double> userWeight;
+
+    private boolean registered;
     //a empty constructor required by FireBase
     public FireBaseUserData(){}
 
     //a standard constructor
     public FireBaseUserData(String userName, String userGender, double userHeight, Map<String, Double> userWeight,
-                            int userAge){
+                            int userAge, boolean registered){
         this.userName = userName;
         this.userGender = userGender;
         this.userAge = userAge;
         this.userHeight = userHeight;
         this.userWeight = userWeight;
+        this.registered = registered;
         /*
         result = new HashMap<>();
         result.put("userName", userName);
@@ -40,12 +45,13 @@ public class FireBaseUserData {
          */
     }
 
-    public FireBaseUserData(Map<String, Object> m){
-        this.userName = (String)m.get("userName");
-        this.userGender = (String)m.get("userGender");
-        this.userAge = (int)m.get("userAge");
-        this.userHeight = (double)m.get("userHeight");
-        this.userWeight = (Map<String, Double>) m.get("userWeight");
+    public FireBaseUserData(User u){
+        this.userName = u.getUserName();
+        this.userGender = u.getUserGender();
+        this.userAge = u.getUserAge();
+        this.userHeight = u.getUserHeight();
+        this.userWeight = u.getUserWeight();
+        this.registered = u.getRegistered();
     }
     /*
     public Map<String, Object> getMap(){
@@ -76,6 +82,8 @@ public class FireBaseUserData {
     public Map<String, Double> getUserWeight(){
         return this.userWeight;
     }
+
+    public boolean getRegistered(){ return this.registered; }
 
 
 }

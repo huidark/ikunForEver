@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.EditBPfFragment">
+
+    <TextView
+        android:id="@+id/tv_bp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:text="You don't have a profile yet!"
+        android:gravity="center"
+        android:textSize="24dp"
+        />
+
+    <Button
+        android:id="@+id/bt_cp"
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Create Profile"
+        android:layout_below="@id/tv_bp"
+        android:textSize="20dp"
+        android:background="@drawable/bg_login"
+        android:textColor="#686868"
+        android:textStyle="bold"
+        />
+
+</RelativeLayout>

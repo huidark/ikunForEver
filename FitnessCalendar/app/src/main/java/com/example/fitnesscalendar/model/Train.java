@@ -1,10 +1,13 @@
 package com.example.fitnesscalendar.model;
+
+import java.io.Serializable;
+
 /*
 This is the model class of train. This class take care of information related to train, which would
 contain train type and calories. One should use this class everywhere else than calling FireBaseFetcher.
 The EventViewModel class should render this class.
  */
-public class Train {
+public class Train implements Serializable {
 
     private String trainingName;
     private boolean trainingIsAn;
@@ -30,7 +33,7 @@ public class Train {
         this.trainingName = trainingName;
     }
 
-    public boolean isTrainingIsAn() {
+    public boolean getTrainingIsAn() {
         return trainingIsAn;
     }
 
@@ -38,7 +41,7 @@ public class Train {
         this.trainingIsAn = trainingIsAn;
     }
 
-    public boolean isTrainingIsCa() {
+    public boolean getTrainingIsCa() {
         return trainingIsCa;
     }
 
