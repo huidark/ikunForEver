@@ -40,6 +40,8 @@ import com.example.fitnesscalendar.viewmodel.EventViewModel;
 import com.example.fitnesscalendar.viewmodel.PhotoViewModel;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -160,6 +162,17 @@ public class ChooseEventFragment extends Fragment {
                 timeLineFragment.setArguments(bundle);
                 em.deleteEvent(deEvent);
                 pm.deletePhoto(deEvent);
+                //TODO: delete photo
+                File fileToDelete = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "eventPhoto/"+ index + ".jpg");
+                if (fileToDelete.exists()) {
+                    if (fileToDelete.delete()) {
+                        // File deleted successfully
+                    } else {
+                        // Failed to delete file
+                    }
+                } else {
+                    // File not found
+                }
                 Toast.makeText(getActivity(), "Successfully delete!", Toast.LENGTH_SHORT).show();
                 getFragmentManager()
                         .beginTransaction()
@@ -297,6 +310,9 @@ public class ChooseEventFragment extends Fragment {
                 apButton.setVisibility(View.GONE);
                 ppButton.setVisibility(View.GONE);
                 photoPath = photoFile.getAbsolutePath();
+
+                Photo photo = new Photo(encodeImageToBase64(new File(photoPath)));
+                pm.createPhoto(deEvent, photo);
                 setPhotoPreview();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -325,10 +341,28 @@ public class ChooseEventFragment extends Fragment {
                 apButton.setVisibility(View.GONE);
                 ppButton.setVisibility(View.GONE);
                 photoPath = photoFile.getAbsolutePath();
+
+                Photo photo = new Photo(encodeImageToBase64(new File(photoPath)));
+                pm.createPhoto(deEvent, photo);
                 setPhotoPreview();
             }catch (Exception e){
                 Log.d("exception", e+"");
             }
         }
     }
+    public static String encodeImageToBase64(File imageFile) {
+        String encodedImage = "";
+        try {
+            FileInputStream fileInputStreamReader = new FileInputStream(imageFile);
+            byte[] bytes = new byte[(int)imageFile.length()];
+            fileInputStreamReader.read(bytes);
+            encodedImage = Base64.encodeToString(bytes, Base64.DEFAULT);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return encodedImage;
+    }
+
 }
