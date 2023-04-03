@@ -191,8 +191,8 @@ public class ChooseEventFragment extends Fragment {
         File photoFile = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "eventPhoto/"+ index + ".jpg");
 
         if (photoFile.exists()) {
-            Log.d("photo path has existed", photoPath);
             photoPath = photoFile.getAbsolutePath();
+            Log.d("photo path has existed", photoPath);
             return true;
         } else {
 
