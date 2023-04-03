@@ -295,6 +295,7 @@ public class ChooseEventFragment extends Fragment {
                 // Show the photo preview and hide the "Add Photo" button
                 phImageView.setVisibility(View.VISIBLE);
                 apButton.setVisibility(View.GONE);
+                ppButton.setVisibility(View.GONE);
                 setPhotoPreview();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -321,6 +322,7 @@ public class ChooseEventFragment extends Fragment {
                 outputStream.close();
                 phImageView.setVisibility(View.VISIBLE);
                 apButton.setVisibility(View.GONE);
+                ppButton.setVisibility(View.GONE);
                 setPhotoPreview();
             }catch (Exception e){
                 Log.d("exception", e+"");
