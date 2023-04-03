@@ -303,6 +303,9 @@ public class ChooseEventFragment extends Fragment {
                 }
                 String filename = index + ".jpg";
                 File photoFile = new File(dir, filename);
+                if(photoFile.exists()){
+                    photoFile.delete();
+                }
                 photoFile.createNewFile();
                 FileOutputStream outputStream = new FileOutputStream(photoFile);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
@@ -334,6 +337,9 @@ public class ChooseEventFragment extends Fragment {
                     dir.mkdir();
                 }
                 File photoFile = new File(dir, fileName);
+                if(photoFile.exists()){
+                    photoFile.delete();
+                }
                 photoFile.createNewFile();
 
                 // Save the captured image to the file
