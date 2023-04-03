@@ -163,7 +163,7 @@ public class ChooseEventFragment extends Fragment {
                 em.deleteEvent(deEvent);
                 pm.deletePhoto(deEvent);
                 //TODO: delete photo
-                File fileToDelete = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "eventPhoto/"+ index + ".jpg");
+                File fileToDelete = new File(photoPath);
                 if (fileToDelete.exists()) {
                     if (fileToDelete.delete()) {
                         // File deleted successfully
