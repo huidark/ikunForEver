@@ -164,6 +164,7 @@ public class ChooseEventFragment extends Fragment {
                 pm.deletePhoto(deEvent);
                 //TODO: delete photo
                 File fileToDelete = new File(photoPath);
+                Log.d("photo path delete", photoPath);
                 if (fileToDelete.exists()) {
                     if (fileToDelete.delete()) {
                         Log.d("delete result", "successful");
