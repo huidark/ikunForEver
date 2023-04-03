@@ -49,9 +49,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_cl"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="55dp"
         android:layout_centerHorizontal="true"
-        android:text="ADD PHOTO"
+        android:text="TAKE A PHOTO"
+        android:background="@drawable/bg_login" />
+
+    <Button
+        android:id="@+id/bt_pp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_cl"
+        android:layout_marginTop="110dp"
+        android:layout_centerHorizontal="true"
+        android:text="PICK A PHOTO"
         android:background="@drawable/bg_login" />
 
     <Button
