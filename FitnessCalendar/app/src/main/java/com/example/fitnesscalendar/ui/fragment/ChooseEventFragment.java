@@ -296,6 +296,7 @@ public class ChooseEventFragment extends Fragment {
                 phImageView.setVisibility(View.VISIBLE);
                 apButton.setVisibility(View.GONE);
                 ppButton.setVisibility(View.GONE);
+                photoPath = photoFile.getAbsolutePath();
                 setPhotoPreview();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -323,6 +324,7 @@ public class ChooseEventFragment extends Fragment {
                 phImageView.setVisibility(View.VISIBLE);
                 apButton.setVisibility(View.GONE);
                 ppButton.setVisibility(View.GONE);
+                photoPath = photoFile.getAbsolutePath();
                 setPhotoPreview();
             }catch (Exception e){
                 Log.d("exception", e+"");
