@@ -191,9 +191,11 @@ public class ChooseEventFragment extends Fragment {
         File photoFile = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "eventPhoto/"+ index + ".jpg");
 
         if (photoFile.exists()) {
+            Log.d("photo path has existed", photoPath);
             photoPath = photoFile.getAbsolutePath();
             return true;
         } else {
+
             //TODO: get photo from firestore
             LiveData<String> base64PhotoL = pm.getPhotoOnce(deEvent);
             if(base64PhotoL != null){
@@ -220,6 +222,7 @@ public class ChooseEventFragment extends Fragment {
                 }
                 File photoFileAgain = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "eventPhoto/"+ index + ".jpg");
                 photoPath = photoFileAgain.getAbsolutePath();
+                Log.d("photo path fireStore", photoPath);
                 return true;
             }else{
                 return false;
@@ -228,6 +231,7 @@ public class ChooseEventFragment extends Fragment {
     }
 
     private void setPhotoPreview() {
+        Log.d("photo path set preview", photoPath);
         // Use Glide to load the photo into the photoPreview ImageView
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -312,6 +316,7 @@ public class ChooseEventFragment extends Fragment {
                 photoPath = photoFile.getAbsolutePath();
 
                 Photo photo = new Photo(encodeImageToBase64(new File(photoPath)));
+                Log.d("photo path pick image", photoPath);
                 pm.createPhoto(deEvent, photo);
                 setPhotoPreview();
             } catch (IOException e) {
@@ -341,7 +346,7 @@ public class ChooseEventFragment extends Fragment {
                 apButton.setVisibility(View.GONE);
                 ppButton.setVisibility(View.GONE);
                 photoPath = photoFile.getAbsolutePath();
-
+                Log.d("photo path take image", photoPath);
                 Photo photo = new Photo(encodeImageToBase64(new File(photoPath)));
                 pm.createPhoto(deEvent, photo);
                 setPhotoPreview();
