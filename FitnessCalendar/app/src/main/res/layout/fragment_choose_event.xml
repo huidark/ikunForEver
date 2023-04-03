@@ -51,7 +51,7 @@
         android:layout_below="@+id/tv_cl"
         android:layout_marginTop="55dp"
         android:layout_centerHorizontal="true"
-        android:text="TAKE A PHOTO"
+        android:text="PICK A PHOTO"
         android:background="@drawable/bg_login" />
 
     <Button
@@ -61,7 +61,7 @@
         android:layout_below="@+id/tv_cl"
         android:layout_marginTop="110dp"
         android:layout_centerHorizontal="true"
-        android:text="PICK A PHOTO"
+        android:text="TAKE A PHOTO"
         android:background="@drawable/bg_login" />
 
     <Button

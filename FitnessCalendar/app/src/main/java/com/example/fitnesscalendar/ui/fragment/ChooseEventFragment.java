@@ -319,6 +319,9 @@ public class ChooseEventFragment extends Fragment {
                 capturedImage.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
                 outputStream.flush();
                 outputStream.close();
+                phImageView.setVisibility(View.VISIBLE);
+                apButton.setVisibility(View.GONE);
+                setPhotoPreview();
             }catch (Exception e){
                 Log.d("exception", e+"");
             }
