@@ -166,12 +166,12 @@ public class ChooseEventFragment extends Fragment {
                 File fileToDelete = new File(photoPath);
                 if (fileToDelete.exists()) {
                     if (fileToDelete.delete()) {
-                        // File deleted successfully
+                        Log.d("delete result", "successful");
                     } else {
-                        // Failed to delete file
+                        Log.d("delete result", "failed");
                     }
                 } else {
-                    // File not found
+                    Log.d("delete result", "no such file");
                 }
                 Toast.makeText(getActivity(), "Successfully delete!", Toast.LENGTH_SHORT).show();
                 getFragmentManager()
