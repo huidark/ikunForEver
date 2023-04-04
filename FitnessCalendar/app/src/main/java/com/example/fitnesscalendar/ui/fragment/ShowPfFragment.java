@@ -20,12 +20,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fitnesscalendar.R;
 import com.example.fitnesscalendar.model.User;
+import com.example.fitnesscalendar.ui.activity.BarChartActivity;
 import com.example.fitnesscalendar.ui.activity.ProfileActivity;
 import com.example.fitnesscalendar.ui.activity.SettingsActivity;
 import com.example.fitnesscalendar.viewmodel.UserViewModel;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.graphics.Color;
+import android.os.Bundle;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class ShowPfFragment extends Fragment implements View.OnClickListener {
 
@@ -123,10 +140,14 @@ public class ShowPfFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.bt_tmw:
-                //TODO:implement this later. This is used to trace the weight of an user.
-                //TODO: 这里你直接用user那个变量 User类里你可以加一个static的函数 完成根据日期和体重绘图这个事情
-                //TODO: 日期的格式 YYYYMMDD
+                // create a new map to store the date and weight and then pass it to BarChartActivity
+                HashMap<String, Double> weightDataMap = new HashMap<>(user.getUserWeight());
+                Intent intent = new Intent(getActivity(), BarChartActivity.class);
+                bundle.putSerializable("weightDataMap", (Serializable) weightDataMap);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
+
             case R.id.bt_ed:
                 editPfFragment = new EditPfFragment();
                 editPfFragment.setArguments(bundle);
