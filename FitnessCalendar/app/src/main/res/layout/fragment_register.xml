@@ -8,11 +8,12 @@
 
 
     <EditText
-        android:id="@+id/et_username"
+        android:id="@+id/et_rpassword"
         android:maxLines="1"
         android:layout_height="60dp"
         android:layout_width="match_parent"
-        android:hint="username"
+        android:inputType="textPassword"
+        android:hint="password"
         android:paddingLeft="10dp"
         android:textColor="#000"
         android:textColorHint="#BABABA"
@@ -23,26 +24,35 @@
         android:layout_marginTop="128dp"
         />
 
+    <EditText
+        android:id="@+id/et_rpasswordc"
+        android:maxLines="1"
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:inputType="textPassword"
+        android:hint="confirm password"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textColorHint="#BABABA"
+        android:layout_below="@id/et_rpassword"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        />
+
     <Button
-        android:id="@+id/bt_next"
+        android:id="@+id/bt_register"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_below="@id/et_username"
-        android:layout_marginTop="80dp"
+        android:layout_below="@id/et_rpasswordc"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
-        android:text="NEXT"
+        android:text="Register"
         android:textColor="#FFF"
         android:textStyle="bold"
         android:background="@drawable/bg_login"
-        />
-
-    <TextView
-        android:layout_below="@id/et_username"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="if you are not registered, clicking next button will take you to register"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
         />
 
 

@@ -5,15 +5,63 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.SettingFragment">
 
+    <EditText
+        android:id="@+id/et_npassword"
+        android:maxLines="1"
+        android:layout_height="60dp"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:hint="new password"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textColorHint="#BABABA"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="60dp"
+        />
+
+    <Button
+        android:id="@+id/bt_cpass"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/et_npassword"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="Change Password"
+        android:textColor="#686868"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_login"
+        />
 
     <Button
         android:id="@+id/bt_del"
         android:layout_height="60dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="50dp"
+        android:layout_below="@id/bt_cpass"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="Delete Account and QUIT"
+        android:textSize="20dp"
+        android:background="@drawable/bg_login"
+        android:textColor="#686868"
+        android:textStyle="bold"
+        />
+
+    <Button
+        android:id="@+id/bt_logout"
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@id/bt_del"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:text="LOG OUT"
         android:textSize="20dp"
         android:background="@drawable/bg_login"
         android:textColor="#686868"

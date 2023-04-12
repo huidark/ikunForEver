@@ -15,6 +15,8 @@ public class User implements Serializable {
 
     private String userName;
     private String userGender;
+
+    private String password;
     //TODO: try to optimize this by setting to Double so null can be accepted
     private double userHeight;
     private int userAge;
@@ -27,13 +29,22 @@ public class User implements Serializable {
 
     //a standard constructor
     public User(String userName, String userGender, double userHeight, Map<String, Double> userWeight,
-                int userAge, boolean registered) {
+                int userAge, boolean registered, String password) {
         this.userName = userName;
         this.userGender = userGender;
         this.userAge = userAge;
         this.userHeight = userHeight;
         this.userWeight = userWeight;
         this.registered = registered;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public User(FireBaseUserData fd) {
@@ -43,6 +54,7 @@ public class User implements Serializable {
         this.userHeight = fd.getUserHeight();
         this.userWeight = fd.getUserWeight();
         this.registered = fd.getRegistered();
+        this.password = fd.getPassword();
     }
 
     /*

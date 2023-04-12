@@ -16,9 +16,9 @@ public class FireBaseUserData {
     private String userName;
     private String userGender;
     private double userHeight;
+    private String password;
     private int userAge;
     //String denotes date, Integer denotes user's height of that day
-    //TODO: there is a probability that you cannot use Map easily. It may be registered as a document
     private Map<String, Double> userWeight;
 
     private boolean registered;
@@ -27,13 +27,14 @@ public class FireBaseUserData {
 
     //a standard constructor
     public FireBaseUserData(String userName, String userGender, double userHeight, Map<String, Double> userWeight,
-                            int userAge, boolean registered){
+                            int userAge, boolean registered, String password){
         this.userName = userName;
         this.userGender = userGender;
         this.userAge = userAge;
         this.userHeight = userHeight;
         this.userWeight = userWeight;
         this.registered = registered;
+        this.password = password;
         /*
         result = new HashMap<>();
         result.put("userName", userName);
@@ -52,6 +53,7 @@ public class FireBaseUserData {
         this.userHeight = u.getUserHeight();
         this.userWeight = u.getUserWeight();
         this.registered = u.getRegistered();
+        this.password = u.getPassword();
     }
     /*
     public Map<String, Object> getMap(){
@@ -84,6 +86,8 @@ public class FireBaseUserData {
     }
 
     public boolean getRegistered(){ return this.registered; }
+
+    public String getPassword(){ return this.password; }
 
 
 }

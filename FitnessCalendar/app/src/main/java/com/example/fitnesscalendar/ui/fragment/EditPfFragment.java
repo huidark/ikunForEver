@@ -53,6 +53,7 @@ public class EditPfFragment extends Fragment implements View.OnClickListener {
 
     //instantiation of variables
     String userName;
+    String password;
     double height;
     double weight;
     int age;
@@ -75,7 +76,6 @@ public class EditPfFragment extends Fragment implements View.OnClickListener {
         SharedPreferences sharedPreferences = getActivity().
                 getSharedPreferences("Data", Context.MODE_PRIVATE);
         userName = sharedPreferences.getString("userName", null);
-
     }
 
     @Override
@@ -155,11 +155,12 @@ public class EditPfFragment extends Fragment implements View.OnClickListener {
             //update weight and other attributes
             LiveData<User> currentUser = um.getOneUser(userName);
             Map<String, Double> currentWeight = currentUser.getValue().getUserWeight();
+            password = currentUser.getValue().getPassword();
             //weight is recorded based on the date
             String currentDate = Date.generateDate();
             currentWeight.put(currentDate, Double.valueOf(weightEt));
             User user = new User(userName, genderEt, Double.valueOf(heightEt),
-            currentWeight, Integer.valueOf(ageEt), true);
+            currentWeight, Integer.valueOf(ageEt), true, password);
             um.updateUser(user);
             Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_SHORT).show();
             showPfFragment = new ShowPfFragment();
