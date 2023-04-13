@@ -297,7 +297,7 @@ public class ChooseEventFragment extends Fragment {
 
                 // Save the picture
                 //TODO: change the path
-                Log.d("photo index2", index);
+                //Log.d("photo index2", index);
                 File dir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "eventPhoto");
                 if (!dir.exists()) {
                     dir.mkdir();
@@ -309,8 +309,8 @@ public class ChooseEventFragment extends Fragment {
                 }
                 photoFile.createNewFile();
                 FileOutputStream outputStream = new FileOutputStream(photoFile);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                outputStream.flush();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 25, outputStream);
+                //outputStream.flush();
                 outputStream.close();
 
                 // Show the photo preview and hide the "Add Photo" button
@@ -320,7 +320,7 @@ public class ChooseEventFragment extends Fragment {
                 photoPath = photoFile.getAbsolutePath();
 
                 Photo photo = new Photo(encodeImageToBase64(new File(photoPath)));
-                Log.d("photo path pick image", photoPath);
+                //Log.d("photo path pick image", photoPath);
                 pm.createPhoto(deEvent, photo);
                 setPhotoPreview();
             } catch (IOException e) {
