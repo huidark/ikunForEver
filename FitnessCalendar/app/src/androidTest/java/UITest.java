@@ -1,29 +1,28 @@
 import android.content.Context;
 
-import androidx.test.rule.ActivityTestRule;
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import static org.junit.Assert.*;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static java.util.regex.Pattern.matches;
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.matcher.ViewMatchers;
+
 
 import com.example.fitnesscalendar.R;
+import com.example.fitnesscalendar.ui.activity.BarChartActivity;
+import com.example.fitnesscalendar.ui.activity.CalenderActivity;
+
+import org.junit.Test;
 
 /**
  * UITest
  *
  */
 public class UITest {
+
+
     @Test
     public void useAppContext() {
         // Context of the app under test.
@@ -33,15 +32,12 @@ public class UITest {
 
     @Test
     public void testButtonClick() {
-//        onView(withId(R.id.button)).perform(click());
-//
-//        onView(withId(R.id.textView)).check(matches(withText("Fitness Calendar")));
-    }
+        // Launch the MainActivity
+        ActivityScenario.launch(BarChartActivity.class);
 
-    @Test
-    public void testEditTextInput() {
-//        onView(withId(R.id.editText)).perform(typeText("Hello"));
-//
-//        onView(withId(R.id.editText)).check(matches(withText("Hello")));
+        // Click on a button with the ID "myButton"
+        Espresso.onView(ViewMatchers.withId(R.id.back_button))
+                .perform(ViewActions.click());
+
     }
 }
