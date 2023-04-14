@@ -51,7 +51,7 @@ public class AvailableTime implements Serializable {
     }
 
 
-    private static int convertToMinutes(String time) {
+    public static int convertToMinutes(String time) {
         String[] timeParts = time.split(":");
         int hours = Integer.parseInt(timeParts[0]);
         int minutes = Integer.parseInt(timeParts[1]);

@@ -48,7 +48,6 @@ public class UITest {
     public void testButtonClick() {
         // Launch the MainActivity
         ActivityScenario<BarChartActivity> activityScenario = ActivityScenario.launch(BarChartActivity.class);
-
         // Click on a button with the ID "back button"
         onView(withId(R.id.back_button))
                 .perform(click());
@@ -58,17 +57,15 @@ public class UITest {
 
     @Test
     public void testBarChartDisplayed() {
-
         // Launch the BarChartActivity
         ActivityScenario<BarChartActivity> activityScenario = ActivityScenario.launch(BarChartActivity.class);
 
         // Check if the BarChart is displayed on the screen
         Espresso.onView(ViewMatchers.withId(R.id.barchart))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-
         // Close the activity
-        activityScenario.close();
-    }
+        activityScenario.close();}
+
 
 
 }
