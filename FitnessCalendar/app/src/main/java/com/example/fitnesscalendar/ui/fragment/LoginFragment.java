@@ -31,7 +31,7 @@ import java.util.Map;
 
 /*
 This class serve as the fragment class of login page.
-This class should show the usernmae text field and button to submit.
+This class should show the username text field and button to submit.
 This class should update username in datastructure
  */
 public class LoginFragment extends Fragment {

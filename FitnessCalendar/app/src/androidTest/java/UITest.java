@@ -1,4 +1,14 @@
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -11,9 +21,13 @@ import androidx.test.espresso.matcher.ViewMatchers;
 
 
 import com.example.fitnesscalendar.R;
+import com.example.fitnesscalendar.model.User;
 import com.example.fitnesscalendar.ui.activity.BarChartActivity;
 import com.example.fitnesscalendar.ui.activity.CalenderActivity;
+import com.example.fitnesscalendar.ui.activity.ProfileActivity;
+import com.example.fitnesscalendar.ui.fragment.LoginFragment;
 
+import org.checkerframework.common.value.qual.StaticallyExecutable;
 import org.junit.Test;
 
 /**
@@ -33,11 +47,28 @@ public class UITest {
     @Test
     public void testButtonClick() {
         // Launch the MainActivity
-        ActivityScenario.launch(BarChartActivity.class);
+        ActivityScenario<BarChartActivity> activityScenario = ActivityScenario.launch(BarChartActivity.class);
 
-        // Click on a button with the ID "myButton"
-        Espresso.onView(ViewMatchers.withId(R.id.back_button))
-                .perform(ViewActions.click());
-
+        // Click on a button with the ID "back button"
+        onView(withId(R.id.back_button))
+                .perform(click());
+        // Close the activity
+        activityScenario.close();
     }
+
+    @Test
+    public void testBarChartDisplayed() {
+
+        // Launch the BarChartActivity
+        ActivityScenario<BarChartActivity> activityScenario = ActivityScenario.launch(BarChartActivity.class);
+
+        // Check if the BarChart is displayed on the screen
+        Espresso.onView(ViewMatchers.withId(R.id.barchart))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+
+        // Close the activity
+        activityScenario.close();
+    }
+
+
 }
