@@ -33,7 +33,7 @@ public class BarChartActivity extends AppCompatActivity {
             Bundle extras = getIntent().getExtras();
             // the data of the user's weight is passed from the ShowPfFragment in a map
             HashMap<String, Double> weightDataMap = (HashMap<String, Double>) extras.getSerializable("weightDataMap");
-            System.out.println(weightDataMap.toString());
+            //System.out.println(weightDataMap.toString());
             barArraylist = new ArrayList();
             float order = 1;
             // fill the arraylist with the user's date and weight information
@@ -44,7 +44,8 @@ public class BarChartActivity extends AppCompatActivity {
                 barArraylist.add(new BarEntry(key, value));
                 order++;
             }
-
+            BarEntry test = new BarEntry(1.2f, 12);
+            test.getY();
             // create the chart
             BarChart barChart = findViewById(R.id.barchart);
             BarDataSet barDataSet = new BarDataSet(barArraylist,"Weight Trace");
@@ -70,4 +71,18 @@ public class BarChartActivity extends AppCompatActivity {
         });
     }
 
+    public static ArrayList getBarData(HashMap<String, Double> data){
+        ArrayList barArraylist = new ArrayList();
+
+        float order = 1;
+        // fill the arraylist with the user's date and weight information
+        for (Map.Entry<String, Double> entry : data.entrySet()) {
+            //float key = Float.parseFloat(entry.getKey());
+            float key = order;
+            int value = entry.getValue().intValue();
+            barArraylist.add(new BarEntry(key, value));
+            order++;
+        }
+        return barArraylist;
+    }
 }

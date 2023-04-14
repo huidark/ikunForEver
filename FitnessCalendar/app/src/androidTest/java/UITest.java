@@ -65,7 +65,4 @@ public class UITest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         // Close the activity
         activityScenario.close();}
-
-
-
 }
