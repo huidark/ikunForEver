@@ -1,6 +1,7 @@
 package com.example.fitnesscalendar.ui.activity;
 
 import static com.example.fitnesscalendar.R.id.fl_container;
+import static com.example.fitnesscalendar.util.NetworkChecker.isNetworkConnected;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -94,12 +95,4 @@ public class GeneralContainerActivity extends AppCompatActivity {
          */
     }
 
-    public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null) {
-            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-        }
-        return false;
-    }
 }

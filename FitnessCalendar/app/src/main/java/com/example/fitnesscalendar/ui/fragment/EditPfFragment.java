@@ -1,5 +1,8 @@
 package com.example.fitnesscalendar.ui.fragment;
 
+import static com.example.fitnesscalendar.R.id.fl_container;
+import static com.example.fitnesscalendar.util.NetworkChecker.isNetworkConnected;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -88,6 +91,13 @@ public class EditPfFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(!isNetworkConnected(getActivity().getApplicationContext())){
+            Log.d("network", "no connection");
+            NoNetFragment noNetFragment = new NoNetFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+            return;
+        }
 
         // instantiation of edit texts
         unText = view.findViewById(R.id.et_name);
@@ -122,6 +132,13 @@ public class EditPfFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if(!isNetworkConnected(getActivity().getApplicationContext())){
+            Log.d("network", "no connection");
+            NoNetFragment noNetFragment = new NoNetFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+            return;
+        }
         String heightEt = htText.getText().toString();
         String ageEt = agText.getText().toString();
         String genderEt = gdText.getText().toString();

@@ -1,5 +1,8 @@
 package com.example.fitnesscalendar.ui.fragment;
 
+import static com.example.fitnesscalendar.R.id.fl_container;
+import static com.example.fitnesscalendar.util.NetworkChecker.isNetworkConnected;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -69,6 +72,13 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         //actions after view is created
         super.onViewCreated(view, savedInstanceState);
+        if(!isNetworkConnected(getActivity().getApplicationContext())){
+            Log.d("network", "no connection");
+            NoNetFragment noNetFragment = new NoNetFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+            return;
+        }
 
         //find two components inside the view
         usernameText = (EditText) view.findViewById(R.id.et_username);
@@ -77,6 +87,13 @@ public class LoginFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!isNetworkConnected(getActivity().getApplicationContext())){
+                    Log.d("network", "no connection");
+                    NoNetFragment noNetFragment = new NoNetFragment();
+                    getFragmentManager().beginTransaction()
+                            .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+                    return;
+                }
                 String username = usernameText.getText().toString();
                 // see if this user is existed
                 LiveData<User> lu = uv.getOneUser(username);

@@ -1,6 +1,7 @@
 package com.example.fitnesscalendar.ui.activity;
 
 import static com.example.fitnesscalendar.R.id.fl_container;
+import static com.example.fitnesscalendar.util.NetworkChecker.isNetworkConnected;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -12,10 +13,12 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.fitnesscalendar.R;
 import com.example.fitnesscalendar.model.User;
 import com.example.fitnesscalendar.ui.fragment.EditBPfFragment;
+import com.example.fitnesscalendar.ui.fragment.NoNetFragment;
 import com.example.fitnesscalendar.ui.fragment.ShowPfFragment;
 import com.example.fitnesscalendar.viewmodel.UserViewModel;
 
@@ -37,6 +40,14 @@ public class ProfileActivity extends AppCompatActivity {
         //create fragment manager and transaction
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if(!isNetworkConnected(getApplicationContext())){
+            Log.d("network", "no connection");
+            NoNetFragment noNetFragment = new NoNetFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(fl_container, noNetFragment).commitAllowingStateLoss();
+            return;
+        }
 
         //get user name
         //TODO: this sharedpreference actually should use Bundle

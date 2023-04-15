@@ -2,6 +2,9 @@ package com.example.fitnesscalendar.ui.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import static com.example.fitnesscalendar.R.id.fl_container;
+import static com.example.fitnesscalendar.util.NetworkChecker.isNetworkConnected;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -100,7 +103,13 @@ public class ChooseEventFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        if(!isNetworkConnected(getActivity().getApplicationContext())){
+            Log.d("network", "no connection");
+            NoNetFragment noNetFragment = new NoNetFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+            return;
+        }
         //TODO: 1. get DeEvent from bundle
         Bundle bundle = getArguments();
         deEvent = (DeEvent) bundle.getSerializable("event");
@@ -125,6 +134,13 @@ public class ChooseEventFragment extends Fragment {
             apButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(!isNetworkConnected(getActivity().getApplicationContext())){
+                        Log.d("network", "no connection");
+                        NoNetFragment noNetFragment = new NoNetFragment();
+                        getFragmentManager().beginTransaction()
+                                .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+                        return;
+                    }
                     // Handle click on "Add Photo" button
                     showPhotoPicker();
                 }
@@ -133,6 +149,13 @@ public class ChooseEventFragment extends Fragment {
             ppButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(!isNetworkConnected(getActivity().getApplicationContext())){
+                        Log.d("network", "no connection");
+                        NoNetFragment noNetFragment = new NoNetFragment();
+                        getFragmentManager().beginTransaction()
+                                .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+                        return;
+                    }
                     showPhotoTaker();
                 }
             });
@@ -141,6 +164,13 @@ public class ChooseEventFragment extends Fragment {
         dnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!isNetworkConnected(getActivity().getApplicationContext())){
+                    Log.d("network", "no connection");
+                    NoNetFragment noNetFragment = new NoNetFragment();
+                    getFragmentManager().beginTransaction()
+                            .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+                    return;
+                }
                 timeLineFragment = new TimeLineFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("date", deEvent.getEvent().getEventDate());
@@ -156,6 +186,13 @@ public class ChooseEventFragment extends Fragment {
         dlButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!isNetworkConnected(getActivity().getApplicationContext())){
+                    Log.d("network", "no connection");
+                    NoNetFragment noNetFragment = new NoNetFragment();
+                    getFragmentManager().beginTransaction()
+                            .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+                    return;
+                }
                 timeLineFragment = new TimeLineFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("date", deEvent.getEvent().getEventDate());

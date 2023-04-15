@@ -1,5 +1,8 @@
 package com.example.fitnesscalendar.ui.activity;
 
+import static com.example.fitnesscalendar.R.id.fl_container;
+import static com.example.fitnesscalendar.util.NetworkChecker.isNetworkConnected;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.fitnesscalendar.R;
+import com.example.fitnesscalendar.ui.fragment.NoNetFragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;

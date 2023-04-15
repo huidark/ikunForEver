@@ -1,5 +1,8 @@
 package com.example.fitnesscalendar.ui.fragment;
 
+import static com.example.fitnesscalendar.R.id.fl_container;
+import static com.example.fitnesscalendar.util.NetworkChecker.isNetworkConnected;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +16,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +75,13 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(!isNetworkConnected(getActivity().getApplicationContext())){
+            Log.d("network", "no connection");
+            NoNetFragment noNetFragment = new NoNetFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+            return;
+        }
 
         //instantiation of Button
         delButton = view.findViewById(R.id.bt_del);
@@ -84,6 +95,13 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if(!isNetworkConnected(getActivity().getApplicationContext())){
+            Log.d("network", "no connection");
+            NoNetFragment noNetFragment = new NoNetFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+            return;
+        }
         Intent it = null;
         SharedPreferences sharedPreferences;
         SharedPreferences.Editor editor;

@@ -1,6 +1,7 @@
 package com.example.fitnesscalendar.ui.fragment;
 
 import static com.example.fitnesscalendar.R.id.fl_container;
+import static com.example.fitnesscalendar.util.NetworkChecker.isNetworkConnected;
 
 import android.os.Bundle;
 
@@ -43,6 +44,13 @@ public class FirstPageFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         //actions after view is created
         super.onViewCreated(view, savedInstanceState);
+        if(!isNetworkConnected(getActivity().getApplicationContext())){
+            Log.d("network", "no connection");
+            NoNetFragment noNetFragment = new NoNetFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+            return;
+        }
 
         Log.d(fragmentTag, "FirstPageFragment onViewCreated() method used!");
 

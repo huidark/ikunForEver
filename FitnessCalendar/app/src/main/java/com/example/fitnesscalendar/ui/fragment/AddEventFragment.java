@@ -1,5 +1,8 @@
 package com.example.fitnesscalendar.ui.fragment;
 
+import static com.example.fitnesscalendar.R.id.fl_container;
+import static com.example.fitnesscalendar.util.NetworkChecker.isNetworkConnected;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -68,6 +71,15 @@ public class AddEventFragment extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if(!isNetworkConnected(getActivity().getApplicationContext())){
+            Log.d("network", "no connection");
+            NoNetFragment noNetFragment = new NoNetFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+            return;
+        }
+
         drSpinner = view.findViewById(R.id.sp_dr);
         tpEditText = view.findViewById(R.id.et_tp);
         clEditText = view.findViewById(R.id.et_cl);
@@ -104,6 +116,13 @@ public class AddEventFragment extends Fragment implements AdapterView.OnItemSele
 
     @Override
     public void onClick(View v) {
+        if(!isNetworkConnected(getActivity().getApplicationContext())){
+            Log.d("network", "no connection");
+            NoNetFragment noNetFragment = new NoNetFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+            return;
+        }
         int selectedDPosition = drSpinner.getSelectedItemPosition();
         String selectedDuration = (String) drSpinner.getItemAtPosition(selectedDPosition);
         Log.d("ATT selectedDU", selectedDuration);

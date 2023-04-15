@@ -1,5 +1,8 @@
 package com.example.fitnesscalendar.ui.fragment;
 
+import static com.example.fitnesscalendar.R.id.fl_container;
+import static com.example.fitnesscalendar.util.NetworkChecker.isNetworkConnected;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -54,6 +57,7 @@ public class TimeLineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         View view = inflater.inflate(R.layout.fragment_time_line, container, false);
         timelineLayout = view.findViewById(R.id.timeline_layout);
 
@@ -76,6 +80,13 @@ public class TimeLineFragment extends Fragment {
         adButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!isNetworkConnected(getActivity().getApplicationContext())){
+                    Log.d("network", "no connection");
+                    NoNetFragment noNetFragment = new NoNetFragment();
+                    getFragmentManager().beginTransaction()
+                            .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+                    return;
+                }
                 addEventFragment = new AddEventFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("time", at);
@@ -96,6 +107,13 @@ public class TimeLineFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(!isNetworkConnected(getActivity().getApplicationContext())){
+            Log.d("network", "no connection");
+            NoNetFragment noNetFragment = new NoNetFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+            return;
+        }
 
 
     }
@@ -141,6 +159,13 @@ public class TimeLineFragment extends Fragment {
                     workout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if(!isNetworkConnected(getActivity().getApplicationContext())){
+                                Log.d("network", "no connection");
+                                NoNetFragment noNetFragment = new NoNetFragment();
+                                getFragmentManager().beginTransaction()
+                                        .replace(fl_container, noNetFragment).commitAllowingStateLoss();
+                                return;
+                            }
                             chooseEventFragment = new ChooseEventFragment();
                             Bundle bundle = new Bundle();
                             DeEvent Bevent = (DeEvent) v.getTag();
