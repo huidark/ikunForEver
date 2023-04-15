@@ -37,17 +37,22 @@
             android:name=".ui.activity.AddEventActivity"
             android:exported="false"
             android:label="@string/title_activity_add_event"
-            android:theme="@style/Theme.FitnessCalendar" />
+            android:theme="@style/Theme.FitnessCalendar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.CalenderActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.ProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.SettingsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.GeneralContainerActivity"
             android:exported="true">
             <intent-filter>
